@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/02/2022 07:48:20 PM
+-- Create Date: 11/02/2022 07:22:17 PM
 -- Design Name: 
--- Module Name: d_latch - Behavioral
+-- Module Name: mx8_1_tb - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,11 +31,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity d_latch is
+entity mx8_1_tb is
 --  Port ( );
-end d_latch;
+end mx8_1_tb;
 
-architecture Behavioral of d_latch is
+architecture Behavioral of mx8_1_tb is
 
 begin
 

@@ -4,7 +4,7 @@
 --
 -- Create Date:
 -- Design Name:
--- Module Name: wide_and_tb - Behavioral
+-- Module Name: dff_tb - Behavioral
 -- Project Name: vhdl_04
 -- Target Devices: xc7a35tcpg236-1
 -- Tool Versions:
@@ -31,43 +31,51 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and_tb is
+entity dff_tb is
 --  Port ( );
-end wide_and_tb;
+end dff_tb;
 
-architecture Behavioral of wide_and_tb is
-
-    constant width : positive := 32;
+architecture Behavioral of dff_tb is
     -- Component Declaration for the Unit Under Test (UUT)
-    component wide_and is
-        generic (width : positive := 32);                       -- data input size
-        Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);
-               y : out STD_LOGIC);
-    end component wide_and;
+    component dff is
+        Port ( clk  : in  STD_LOGIC;
+               d    : in  STD_LOGIC;
+               q    : out  STD_LOGIC);
+    end component dff;
 
     --Inputs
-    signal Data : std_logic_vector(width-1 downto 0) := (others => '0');
+    signal d    : std_logic := '0';
+        -- Clock signal
+        signal clk : std_logic;
+        constant clk_period : time := 10 ns;
 
-      --Outputs
-    signal y : std_logic;
+    --Outputs
+    signal q : std_logic;
 
 begin
-	-- Instantiate the Unit Under Test (UUT)
-    UUT: wide_and port map (Data => Data, y => y);
+
+    -- Instantiate the Unit Under Test (UUT)
+    UUT: dff port map (clk => clk, d => d, q => q);
+
+    -- Clock process definitions
+    clk_process : process
+    begin
+        clk <= '0';
+        wait for clk_period/2;
+        clk <= '1';
+        wait for clk_period/2;
+    end process;
+
 
     -- Stimulus process
     stim_proc: process
-     begin
-       -- hold reset state for 100 ns.
-       wait for 100 ns;
+    begin
+        -- hold reset state for 100 ns.
+        wait for 100 ns;
 
-         data <= X"00000000";
-         wait for 100 ns;
-         data <= X"FFFFFFFF";
-         wait for 100 ns;
-         data <= X"ABCDEF00";
+        d <= '0', '1' after 104 ns, '0' after 116 ns, '1' after 134 ns;
 
-       wait;
+        wait;
     end process;
 
 end Behavioral;
