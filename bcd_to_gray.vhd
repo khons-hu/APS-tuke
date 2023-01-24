@@ -1,12 +1,12 @@
 ----------------------------------------------------------------------------------
--- Company:  DCI FEEI TUKE
--- Engineer: Norbert Ádám
+-- Company: 
+-- Engineer: 
 -- 
--- Create Date: 
+-- Create Date: 11/02/2022 06:36:08 PM
 -- Design Name: 
--- Module Name: wide_and - Behavioral
--- Project Name: lesson_05
--- Target Devices: xc7a35tcpg236-1
+-- Module Name: bcd_to_gray - Behavioral
+-- Project Name: 
+-- Target Devices: 
 -- Tool Versions: 
 -- Description: 
 -- 
@@ -31,24 +31,16 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and is
-    generic (width : positive := 32);                       -- data input size
-    Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);   
-           y : out STD_LOGIC);                              
-end wide_and;
+entity bcd_to_gray is
+  Port ( bcd : in std_logic_vector(3 downto 0);
+         gray : out std_logic_vector(3 downto 0) );
+end bcd_to_gray;
 
-architecture Behavioral of wide_and is
+architecture Behavioral of bcd_to_gray is
 
 begin
 
-    process (Data) is
-        variable tmp : std_logic;
-    begin    
-        tmp := Data(0);
-        for i in 1 to width-1 loop
-            tmp := tmp and Data(i);
-        end loop;
-        y <= tmp;
-    end process;
+    gray(3 downto 0) <= (bcd(3), bcd(3) xor bcd(2), bcd(2) xor bcd(1), bcd(1) xor bcd(0));
+
 
 end Behavioral;

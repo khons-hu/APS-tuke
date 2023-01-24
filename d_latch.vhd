@@ -4,8 +4,8 @@
 -- 
 -- Create Date: 
 -- Design Name: 
--- Module Name: wide_and - Behavioral
--- Project Name: lesson_05
+-- Module Name: d_latch - Behavioral
+-- Project Name: vhdl_04
 -- Target Devices: xc7a35tcpg236-1
 -- Tool Versions: 
 -- Description: 
@@ -31,24 +31,21 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and is
-    generic (width : positive := 32);                       -- data input size
-    Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);   
-           y : out STD_LOGIC);                              
-end wide_and;
+entity d_latch is
+    Port ( d    : in STD_LOGIC;
+           en   : in STD_LOGIC; --podla toho bude prepnute
+           q    : out STD_LOGIC); -- output, co bude vlastne len vysimulovany dole
+end d_latch;
 
-architecture Behavioral of wide_and is
+architecture Behavioral of d_latch is
 
 begin
 
-    process (Data) is
-        variable tmp : std_logic;
-    begin    
-        tmp := Data(0);
-        for i in 1 to width-1 loop
-            tmp := tmp and Data(i);
-        end loop;
-        y <= tmp;
+    DFF_LATCH_EN: process(d, en) is
+    begin	
+        if (en = '1') then
+            q <= d;
+        end if;            
     end process;
 
 end Behavioral;

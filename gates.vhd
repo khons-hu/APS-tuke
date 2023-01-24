@@ -1,11 +1,11 @@
 ----------------------------------------------------------------------------------
--- Company:  DCI FEEI TUKE
--- Engineer: Norbert Ádám
+-- Company:  incelSoft
+-- Engineer: macka
 -- 
 -- Create Date: 
 -- Design Name: 
--- Module Name: wide_and - Behavioral
--- Project Name: lesson_05
+-- Module Name: gates - Behavioral
+-- Project Name: vhdl_01
 -- Target Devices: xc7a35tcpg236-1
 -- Tool Versions: 
 -- Description: 
@@ -31,24 +31,28 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and is
-    generic (width : positive := 32);                       -- data input size
-    Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);   
-           y : out STD_LOGIC);                              
-end wide_and;
+entity gates is
+    Port ( a : in STD_LOGIC;        
+           b : in STD_LOGIC;        
+           y_not : out STD_LOGIC;
+           y_and : out STD_LOGIC;
+           y_or : out STD_LOGIC;
+           y_nand : out STD_LOGIC;
+           y_nor : out STD_LOGIC;
+           y_xor : out STD_LOGIC;
+           y_xnor : out STD_LOGIC);
+end gates;
 
-architecture Behavioral of wide_and is
+architecture Behavioral of gates is
 
 begin
 
-    process (Data) is
-        variable tmp : std_logic;
-    begin    
-        tmp := Data(0);
-        for i in 1 to width-1 loop
-            tmp := tmp and Data(i);
-        end loop;
-        y <= tmp;
-    end process;
-
+    y_not <= not a; 
+    y_and <= a and b;
+    y_or <= a or b;
+    y_nand <= a nand b;
+    y_nor <= a nor b;
+    y_xor <= a xor b;
+    y_xnor <= a xnor b;
+    
 end Behavioral;

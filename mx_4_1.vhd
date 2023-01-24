@@ -1,11 +1,11 @@
 ----------------------------------------------------------------------------------
--- Company:  DCI FEEI TUKE
--- Engineer: Norbert Ádám
+-- Company:  
+-- Engineer:
 -- 
 -- Create Date: 
 -- Design Name: 
--- Module Name: wide_and - Behavioral
--- Project Name: lesson_05
+-- Module Name: mx4_1_with_select - Behavioral
+-- Project Name: vhdl_02
 -- Target Devices: xc7a35tcpg236-1
 -- Tool Versions: 
 -- Description: 
@@ -31,24 +31,20 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and is
-    generic (width : positive := 32);                       -- data input size
-    Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);   
-           y : out STD_LOGIC);                              
-end wide_and;
+entity mx4_1_with_select is
+    Port ( D : in STD_LOGIC_VECTOR (3 downto 0);
+           S : in STD_LOGIC_VECTOR (1 downto 0);
+           y : out STD_LOGIC);
+end mx4_1_with_select;
 
-architecture Behavioral of wide_and is
+architecture Behavioral of mx4_1_with_select is
 
 begin
 
-    process (Data) is
-        variable tmp : std_logic;
-    begin    
-        tmp := Data(0);
-        for i in 1 to width-1 loop
-            tmp := tmp and Data(i);
-        end loop;
-        y <= tmp;
-    end process;
+	with S select
+        y <= D(0) when "00",
+             D(1) when "01",
+             D(2) when "10",
+             D(3) when others;
 
 end Behavioral;

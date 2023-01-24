@@ -4,21 +4,19 @@
 -- 
 -- Create Date: 
 -- Design Name: 
--- Module Name: wide_and - Behavioral
--- Project Name: lesson_05
+-- Module Name: dff - Behavioral 
+-- Project Name: vhdl_04
 -- Target Devices: xc7a35tcpg236-1
--- Tool Versions: 
+-- Tool versions: 
 -- Description: 
--- 
+--
 -- Dependencies: 
--- 
--- Revision:
+--
+-- Revision: 
 -- Revision 0.01 - File Created
--- Additional Comments:
--- 
+-- Additional Comments: 
+--
 ----------------------------------------------------------------------------------
-
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -27,28 +25,40 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
+-- any Xilinx primitives in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and is
-    generic (width : positive := 32);                       -- data input size
-    Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);   
-           y : out STD_LOGIC);                              
-end wide_and;
+entity dff is
+    Port ( clk  : in  STD_LOGIC;
+           d    : in  STD_LOGIC; 
+           q    : out  STD_LOGIC);
+end dff;
 
-architecture Behavioral of wide_and is
+architecture Behavioral of dff is
 
 begin
 
-    process (Data) is
-        variable tmp : std_logic;
-    begin    
-        tmp := Data(0);
-        for i in 1 to width-1 loop
-            tmp := tmp and Data(i);
-        end loop;
-        y <= tmp;
-    end process;
+	DFF_UP: process(clk) is
+	begin			
+		if rising_edge(clk) then
+--		if (clk'event and clk = '1') then
+			q <= d;
+		end if;
+	end process;
 
 end Behavioral;
+
+--architecture Behavioral of dff is
+
+--begin
+
+--	DFF_DOWN: process(clk) is
+--	begin			
+--		if falling_edge(clk) then
+----		if (clk'event and clk = '0') then
+--			q <= d;
+--		end if;
+--	end process;
+
+--end Behavioral;

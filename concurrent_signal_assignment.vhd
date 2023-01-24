@@ -1,11 +1,11 @@
 ----------------------------------------------------------------------------------
--- Company:  DCI FEEI TUKE
--- Engineer: Norbert Ádám
+-- Company:  
+-- Engineer: 
 -- 
 -- Create Date: 
 -- Design Name: 
--- Module Name: wide_and - Behavioral
--- Project Name: lesson_05
+-- Module Name: concurrent_signal_assignment - Behavioral
+-- Project Name: vhdl_02
 -- Target Devices: xc7a35tcpg236-1
 -- Tool Versions: 
 -- Description: 
@@ -31,24 +31,26 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity wide_and is
-    generic (width : positive := 32);                       -- data input size
-    Port ( Data : in STD_LOGIC_VECTOR (width-1 downto 0);   
-           y : out STD_LOGIC);                              
-end wide_and;
+entity concurrent_signal_assignment is
 
-architecture Behavioral of wide_and is
+    Port ( a,b,c : in STD_LOGIC;
+           y : out STD_LOGIC);
+           
+end concurrent_signal_assignment;
+
+architecture Behavioral of concurrent_signal_assignment is
+
+-- Signal declarations
+signal not_a_and_not_B : STD_LOGIC;
+signal not_b_and_not_c : STD_LOGIC;
+signal a_and_b_and_c   : STD_LOGIC;
 
 begin
 
-    process (Data) is
-        variable tmp : std_logic;
-    begin    
-        tmp := Data(0);
-        for i in 1 to width-1 loop
-            tmp := tmp and Data(i);
-        end loop;
-        y <= tmp;
-    end process;
+    not_a_and_not_B <= (not a) and (not b); -- {0,1}
+    not_b_and_not_c <= (not b) and (not c); -- (0,4}
+    a_and_b_and_c   <= a and b and c; 		-- {7}
+    
+    y <= not_a_and_not_B or not_b_and_not_c or a_and_b_and_c;
 
 end Behavioral;
